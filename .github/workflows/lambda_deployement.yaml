@@ -12,20 +12,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install zip tool
-        run: sudo apt-get install -y zip
+      - name: Install zip and pip
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zip python3-pip
 
-      - name: Install dependencies
+      
+      - name: Install dependencies and prepare package
         run: |
           mkdir -p lambda_build
           cp -r lambda_src/* lambda_build/
-          if [ -f requirements.txt ]; then
-            pip install -r lambda_src/requirements.txt -t lambda_build/
-          fi
+          pip install --upgrade pip
+          pip install -r requirements.txt -t lambda_build/
 
-      - name: Create Zip file for Lambda function
+   
+      - name: Debug - list build contents
         run: |
-          cd lambda_src
+          ls -R lambda_build | head -n 100
+
+   
+      - name: Create zip file for Lambda function
+        run: |
+          cd lambda_build
           zip -r ../lambda_src.zip .
 
       - name: Update AWS Lambda function
