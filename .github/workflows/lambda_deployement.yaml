@@ -22,7 +22,7 @@ jobs:
         run: |
           
           pip install --upgrade pip
-          pip install -r lambda_src/requirements.txt -t 
+          pip install -r lambda_src/requirements.txt
 
    
       
