@@ -23,7 +23,7 @@ jobs:
           mkdir -p lambda_build
           cp -r lambda_src/* lambda_build/
           pip install --upgrade pip
-          pip install -r requirements.txt -t lambda_build/
+          pip install -r lambda_src/requirements.txt -t lambda_build/
 
    
       - name: Debug - list build contents
