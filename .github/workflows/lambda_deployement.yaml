@@ -15,6 +15,14 @@ jobs:
       - name: Install zip tool
         run: sudo apt-get install -y zip
 
+      - name: Install dependencies
+        run: |
+          mkdir -p lambda_build
+          cp -r lambda_src/* lambda_build/
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt -t lambda_build/
+          fi
+
       - name: Create Zip file for Lambda function
         run: |
           cd lambda_src
